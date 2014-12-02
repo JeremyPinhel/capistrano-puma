@@ -28,7 +28,7 @@ prune_bundler
 <% end %>
 
 <% if fetch(:puma_init_active_record) || fetch(:puma_worker_set)  %>
-on_worker_boot do
+on_worker_boot do |worker_index|
   <% if fetch(:puma_workers).to_i > 1 %>
   File.open("<%=fetch(:puma_worker_set)%>/puma_worker_#{worker_index}.pid", "w") { |f| f.puts Process.pid }
   <% end %>
