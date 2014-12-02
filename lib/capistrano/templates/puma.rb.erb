@@ -28,10 +28,10 @@ prune_bundler
 <% end %>
 
 <% if fetch(:puma_init_active_record) || fetch(:puma_worker_set)  %>
-<% if fetch(:puma_workers) > 1 %>
-  File.open("/home/kowabounga/colecule_client/tmp/pids/puma_worker_#{worker_index}.pid", "w") { |f| f.puts Process.pid }
-<% end %>
 on_worker_boot do
+  <% if fetch(:puma_workers) > 1 %>
+  File.open("/home/kowabounga/colecule_client/tmp/pids/puma_worker_#{worker_index}.pid", "w") { |f| f.puts Process.pid }
+  <% end %>
   ActiveSupport.on_load(:active_record) do
     ActiveRecord::Base.establish_connection
   end
